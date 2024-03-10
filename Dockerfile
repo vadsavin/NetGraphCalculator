@@ -11,10 +11,10 @@ WORKDIR /app
 COPY . .
 
 # Restore dependencies using NuGet
-RUN dotnet restore
+RUN dotnet restore WebApp/WebApp.csproj
 
 # Publish the application for deployment
-RUN dotnet publish -c Release -o out
+RUN dotnet publish WebApp/WebApp.csproj -c Release -o out
 
 # Expose port for the web application (adjust if needed)
 EXPOSE 8080
