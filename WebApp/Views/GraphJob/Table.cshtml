@@ -1,0 +1,42 @@
+﻿@using NetGraphSolver;
+@model GraphSolver
+
+<table class="table table-striped table-responsive">
+    <thead class="thead-light">
+        <tr>
+            <th class="text-center">Работа</th>
+            <th class="text-center">Предшествует</th>
+            <th class="text-center">Длительность</th>
+            <th class="text-center">Раннее начало</th>
+            <th class="text-center">Раннее окончание</th>
+            <th class="text-center">Позднее начало</th>
+            <th class="text-center">Позднее окончание</th>
+            <th class="text-center">Резерв</th>
+            <th class="text-center">Крит. путь</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var job in Model.Jobs)
+            {
+            <tr>
+                <td class="text-center">@job.StartNode-@job.EndNode</td>
+                <td class="text-center">@job.PreviousCount</td>
+                <td class="text-center">@job.Duration</td>
+                <td class="text-center">@job.EarlyStart</td>
+                <td class="text-center">@job.EarlyEnd</td>
+                <td class="text-center">@job.LateStart</td>
+                <td class="text-center">@job.LateEnd</td>
+                <td class="text-center">@job.Reserve</td>
+                <td class="text-center">@(job.Reserve == 0 ? "+" : "")</td>
+            </tr>
+            }
+    </tbody>
+</table>
+<div>
+    <p>Критический путь:</p>
+    @foreach (var node in Model.GetCriticalRoute())
+    {
+        <span>@node</span>
+    }
+    <span>= @Model.CalculateCriticalRoute()</span>
+</div>
